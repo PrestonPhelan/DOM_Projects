@@ -65,6 +65,7 @@
 	  let router = new Router (updateNode, routes);
 	  router.start();
 
+	  window.location.hash = 'inbox';
 	});
 
 
@@ -106,18 +107,60 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	const MessageStore = __webpack_require__(3);
 
 	const Inbox = {
 	  render: () => {
+	    let messages = MessageStore.getInboxMessages;
 	    let ul = document.createElement('ul');
 	    ul.className = 'messages';
-	    ul.innerHTML = 'An Inbox Message';
+
+	    messages.forEach( el => {
+	      let messageNode = Inbox.renderMessage(el);
+	      ul.appendChild(messageNode);
+	    });
+	    // ul.innerHTML = 'An Inbox Message';
 	    return ul;
+	  },
+
+	  renderMessage: (message) => {
+	    let li = document.createElement('li');
+	    li.className = 'message';
+	    li.innerHTML = `<span class='from'>${message.from}</span>
+	    <span class='subject'>${message.subject}</span>
+	    <span class='body'>${message.body}</span>`;
+
+	    return li;
 	  }
 	};
 
 	module.exports = Inbox;
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	let messages = {
+	  sent: [
+	    {to: "friend@mail.com", subject: "Check this out", body: "It's so cool"},
+	    {to: "person@mail.com", subject: "zzz", body: "so booring"}
+	  ],
+	  inbox: [
+	    {from: "grandma@mail.com", subject: "Fwd: Fwd: Fwd: Check this out", body:
+	"Stay at home mom discovers cure for leg cramps. Doctors hate her"},
+	  {from: "person@mail.com", subject: "Questionnaire", body: "Take this free quiz win $1000 dollars"}
+	]
+	};
+
+	let MessageStore = {
+	  getInboxMessages: messages.inbox,
+	  getSentMessages: messages.sent
+	};
+
+	module.exports = MessageStore;
 
 
 /***/ }

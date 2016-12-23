@@ -19,4 +19,5 @@ document.addEventListener("DOMContentLoaded", () => {
   let router = new Router (updateNode, routes);
   router.start();
 
+  window.location.hash = 'inbox';
 });
