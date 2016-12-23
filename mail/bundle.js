@@ -46,6 +46,7 @@
 
 	const Router = __webpack_require__(1);
 	const Inbox = __webpack_require__(2);
+	const Sent = __webpack_require__(4);
 
 	document.addEventListener("DOMContentLoaded", () => {
 	  let objects = document.querySelectorAll('.sidebar-nav li');
@@ -58,7 +59,8 @@
 	  });
 
 	  let routes = {
-	    inbox: Inbox
+	    inbox: Inbox,
+	    sent: Sent
 	  };
 
 	  let updateNode = document.querySelector('.content');
@@ -161,6 +163,40 @@
 	};
 
 	module.exports = MessageStore;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const MessageStore = __webpack_require__(3);
+
+	const Sent = {
+	  render: () => {
+	    let messages = MessageStore.getSentMessages;
+	    let ul = document.createElement('ul');
+	    ul.className = 'messages';
+
+	    messages.forEach( el => {
+	      let messageNode = Sent.renderMessage(el);
+	      ul.appendChild(messageNode);
+	    });
+	    // ul.innerHTML = 'An Inbox Message';
+	    return ul;
+	  },
+
+	  renderMessage: (message) => {
+	    let li = document.createElement('li');
+	    li.className = 'message';
+	    li.innerHTML = `<span class='to'>${message.to}</span>
+	    <span class='subject'>${message.subject}</span>
+	    <span class='body'>${message.body}</span>`;
+
+	    return li;
+	  }
+	};
+
+	module.exports = Sent;
 
 
 /***/ }

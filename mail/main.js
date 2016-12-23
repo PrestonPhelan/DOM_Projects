@@ -1,5 +1,6 @@
 const Router = require('./router.js');
 const Inbox = require('./Inbox.js');
+const Sent = require('./sent.js');
 
 document.addEventListener("DOMContentLoaded", () => {
   let objects = document.querySelectorAll('.sidebar-nav li');
@@ -12,7 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   let routes = {
-    inbox: Inbox
+    inbox: Inbox,
+    sent: Sent
   };
 
   let updateNode = document.querySelector('.content');
